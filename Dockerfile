@@ -2,11 +2,12 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Install system dependencies
+# Install system dependencies including netcat-traditional
 RUN apt-get update && apt-get install -y \
     default-libmysqlclient-dev \
     build-essential \
     pkg-config \
+    netcat-traditional \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements first for better caching
