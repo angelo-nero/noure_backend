@@ -17,7 +17,8 @@ if [ -n "${DJANGO_SUPERUSER_USERNAME}" ]; then
     python manage.py createsuperuser \
         --noinput \
         --username $DJANGO_SUPERUSER_USERNAME \
-        --email $DJANGO_SUPERUSER_EMAIL
+        --email $DJANGO_SUPERUSER_EMAIL \
+        --password $DJANGO_SUPERUSER_PASSWORD
 fi
 
 # Start the application
