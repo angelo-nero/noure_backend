@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-5c-j@xgozdyw#fom&rw4uqz==15t7qd4=88s(6^2o@*kird!e2
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 # ALLOWED_HOSTS configuration
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = ['*']  # Temporarily allow all hosts for debugging
 
 
 # Application definition
@@ -46,10 +46,10 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',    # Keep this first
+    'django.middleware.common.CommonMiddleware', # This should be right after CORS
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -57,10 +57,19 @@ MIDDLEWARE = [
 ]
 
 # CORS configuration
-CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS', 'http://localhost:3000').split(',')
+CORS_ORIGIN_ALLOW_ALL = True  # Temporarily enable this for debugging
+
 CORS_ALLOW_CREDENTIALS = True
 
-# Additional CORS settings
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "https://nourefrontend-production.up.railway.app",
+]
+
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https://.*\.railway\.app$",
+]
+
 CORS_ALLOW_METHODS = [
     'DELETE',
     'GET',
@@ -82,8 +91,8 @@ CORS_ALLOW_HEADERS = [
     'x-requested-with',
 ]
 
-# CORS_ORIGIN_WHITELIST for explicit whitelisting
-CORS_ORIGIN_WHITELIST = os.environ.get('CORS_ALLOWED_ORIGINS', 'http://localhost:3000').split(',')
+# Ensure CORS headers are exposed
+CORS_EXPOSE_HEADERS = ['*']
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
