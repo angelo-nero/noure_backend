@@ -46,18 +46,24 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',    # Keep this first
-    'django.middleware.common.CommonMiddleware', # This should be right after CORS
+    'corsheaders.middleware.CorsMiddleware',    # First
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# CSRF settings
+CSRF_TRUSTED_ORIGINS = [
+    "https://nourefrontend-production.up.railway.app",
+    "http://localhost:3000",
+]
+
 # CORS configuration
-CORS_ORIGIN_ALLOW_ALL = True  # Temporarily enable this for debugging
+CORS_ORIGIN_ALLOW_ALL = True  # Temporarily for debugging
 
 CORS_ALLOW_CREDENTIALS = True
 
@@ -190,4 +196,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Media files configuration
 MEDIA_URL = '/blog_images/'
 MEDIA_ROOT = str(BASE_DIR / 'blog_images')
+
+# Security settings
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# Cookie settings
+CSRF_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SAMESITE = 'None'
 
