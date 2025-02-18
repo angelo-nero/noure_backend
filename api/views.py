@@ -93,9 +93,18 @@ def login_view(request):
     )
 
 
-class NewsViewSet(viewsets.ReadOnlyModelViewSet):
+class NewsViewSet(viewsets.ModelViewSet):
     queryset = News.objects.all()
     serializer_class = NewsSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_permissions(self):
+        """
+        Override to ensure only admin users can create/update/delete
+        """
+        if self.action in ['create', 'update', 'partial_update', 'destroy']:
+            return [IsAdminUser()]
+        return [AllowAny()]
 
 class ProgrammingLanguageViewSet(viewsets.ModelViewSet):
     queryset = ProgrammingLanguage.objects.all()

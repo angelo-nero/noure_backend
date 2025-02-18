@@ -139,9 +139,9 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('DB_NAME', 'comhub_db'),
-        'USER': os.environ.get('DB_USER', 'comhub_user'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', 'comhub_password'),
+        'NAME': os.environ.get('DB_NAME', 'forum_db'),
+        'USER': os.environ.get('DB_USER', 'forum_user'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'forum_password'),
         'HOST': os.environ.get('DB_HOST', '127.0.0.1'),
         'PORT': os.environ.get('DB_PORT', '3306'),
         'OPTIONS': {

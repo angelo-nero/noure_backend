@@ -6,11 +6,13 @@ from .views import (
     user_list,
     toggle_user_status,
     create_user,
-    update_user
+    update_user,
+    SnippetViewSet
 )
 
 router = DefaultRouter()
 router.register(r'items', ItemViewSet)
+router.register(r'snippets', SnippetViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
